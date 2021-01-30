@@ -3,9 +3,13 @@ const app = express();
 const mongoose = require("mongoose");
 const Job = require("./models/job");
 const bodyParser = require("body-parser");
+const user = require("./routes/user");
+const job = require("./routes/jobs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use("/user", user);
+app.use("/api", job);
 
 mongoose
   .connect("mongodb://localhost/naukaridotcom", { useNewUrlParser: true, useUnifiedTopology: true })
@@ -14,23 +18,6 @@ mongoose
 
 app.get("/", (req, res) => {
   res.send("Health is ok");
-});
-
-app.post("/job", async (req, res) => {
-  const job = new Job({
-    name: req.body.name,
-    vacancy: req.body.vacancy,
-  });
-  await job.save();
-  res.send("Job added");
-});
-
-app.get("/jobs", (req, res) => {
-  res.json([
-    { jobs: "Software devloper", experience: "10years" },
-    { jobs: "Software devloper", experience: "10years" },
-    { jobs: "Software devloper", experience: "10years" },
-  ]);
 });
 
 app.listen(3002, (err) => {

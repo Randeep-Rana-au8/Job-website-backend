@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  profileImage: {
+  profilePic: {
     type: String,
     required: true,
   },
@@ -29,6 +29,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+  },
+  password: { type: String, required: true },
 });
 
 const Users = mongoose.model("User", userSchema);
